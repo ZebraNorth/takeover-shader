@@ -85,12 +85,10 @@
             float d = distance(_StartPosition, IN.objectSpacePosition);
             float thickness = _Thickness;
 
-            float fadeIn = 1.0 - smoothstep(radius - thickness, radius, d);
+            float fadeIn = smoothstep(radius - thickness, radius, d);
             float noise = (noise2d(IN.uv_MainTex * _NoiseScale) + 1.0) / 2.0;
 
             float mixture = step(fadeIn, noise);
-            if (noise < fadeIn)
-                mixture = 1.0; else mixture = 0.0;
 
             // Mix the original material with the takeover material.
             fixed4 tc = tex2D(_TakeoverTex, IN.uv_TakeoverTex) * _TakeoverColor;
